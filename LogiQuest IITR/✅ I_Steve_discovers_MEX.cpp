@@ -24,7 +24,7 @@ void solve()
     }
     // otherwise ans is just n - k, where k is no. of. numbers already present in [0, n - 1]
     // now, we could just do this in O(n) but the constraints prevent us
-    // we need O(logn) or better - this sceams binary search!
+    // we need O(logn) or better - this screams binary search!
     // but we can't apply binary search on a vector of 1e18 length when we can't even store it
     int k = min(n, (n - c - 1) / b + 1);
     cout << max(0LL, n - k) << endl;
