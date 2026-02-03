@@ -149,7 +149,50 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int L, H;
+    cin >> L >> H;
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(n); // partition parallel to y-axis
+    vector<int> b(m); // partition parallel to x-axis
+    for (int i = 0; i < n; i ++)
+    {
+        cin >> a[i];
+    }
+    for (int i = 0; i < m; i ++)
+    {
+        cin >> b[i];
+    }
+    int c;
+    cin >> c;
+    vector<int> p(c); // x-coords
+    vector<int> q(c); // y-coords
+    for (int i = 0; i < c; i ++)
+    {
+        cin >> p[i];
+    }
+    for (int i = 0; i < c; i ++)
+    {
+        cin >> q[i];
+    }
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+    map<pair<int, int>, int> count; // count of cows in each region
+    for (int i = 0; i < c; i ++)
+    {
+        int x = lower_bound(a.begin(), a.end(), p[i]) - a.begin();
+        int y = lower_bound(b.begin(), b.end(), q[i]) - b.begin();
+        count[{x, y}] += 1;
+    }
+    int mn = c; int mx = 0;
+    for (auto &p : count)
+    {
+        mn = min(mn, p.second);
+        mx = max(mx, p.second);
+    }
+    if (count.size() < (n + 1) * (m + 1)) cout << 0 << endl;
+    else cout << mn << endl;
+    cout << mx << endl;
 }
 int32_t main() 
 {

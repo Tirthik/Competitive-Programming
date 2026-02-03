@@ -149,7 +149,96 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<vector<int>> grid(n, vector<int>(n, 0));
+    for (int i = 0; i < n; i ++)
+    {
+        for (int j = 0; j < n; j ++)
+        {
+            cin >> grid[i][j];
+        }
+    }
+    bool b = true;
+    int x = -1; int y = -1;
+    for (int i = 0; i < n; i ++)
+    {
+        for (int j = i + 1; j < n; j ++)
+        {
+            for (int k = 0; k < n; k ++)
+            {
+                if (grid[i][k] != grid[j][k])
+                {
+                    b = false;
+                    x = i;
+                    y = j;
+                    break;
+                }
+            }
+            if (b == false) break;
+        }
+        if (b == false) break;
+    }
+    if (x == -1 && y == -1) // all elements equal
+    {
+        for (int i = 0; i < n; i ++)
+        {
+            for (int j = 0; j < n; j ++)
+            {
+                cout << (grid[0][0] == 1 ? 2 : 1) << " ";
+            }
+            cout << endl;
+        }
+        return;
+    }
+    for (int j = 0; j < n; j ++)
+    {
+        swap(grid[x][j], grid[y][j]);
+    }
+    b = true;
+    x = -1; y = -1;
+    for (int i = 1; i < n; i ++)
+    {
+        for (int j = i + 1; j < n; j ++)
+        {
+            for (int k = 0; k < n; k ++)
+            {
+                if (grid[i][k] != grid[j][k])
+                {
+                    b = false;
+                    x = i;
+                    y = j;
+                    break;
+                }
+            }
+            if (b == false) break;
+        }
+        if (b == false) break;
+    }
+    if (x == -1 && y == -1) // all elements equal
+    {
+        for (int i = 0; i < n; i ++)
+        {
+            for (int j = 0; j < n; j ++)
+            {
+                cout << (grid[0][0] == 1 ? 2 : 1) << " ";
+            }
+            cout << endl;
+        }
+        return;
+    }
+    for (int j = 0; j < n; j ++)
+    {
+        swap(grid[x][j], grid[y][j]);
+    }
+    for (int i = 0; i < n; i ++)
+    {
+        for (int j = 0; j < n; j ++)
+        {
+            cout << grid[i][j] << " ";
+        }
+        cout << endl;
+    }
 }
 int32_t main() 
 {

@@ -149,14 +149,45 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    vector<int> freq(1e6 + 1, 0);
+    for (int i = 0; i < n; i ++)
+    {
+        cin >> a[i];
+        freq[a[i]] += 1;
+    }
+    // cnt[g] = multiples of g (bucket logic)
+    vector<int> cnt(1e6 + 1, 0);
+    for (int g = 1; g <= 1e6; g++) 
+    {
+        for (int m = g; m <= 1e6; m += g) 
+        {
+            cnt[g] += freq[m];
+        }
+    }
+    vector<int> ans(n + 1, 0);
+    for (int g = 1e6; g >= 1; g --) 
+    {
+        int c = cnt[g];
+        while (c > 0 && ans[c] == 0) 
+        {
+            ans[c] = g;
+            c--;
+        }
+    }
+    for (int k = 1; k <= n; k++) 
+    {
+        cout << (ans[k] == 0 ? 1 : ans[k]) << " ";
+    }
+    cout << endl;
 }
 int32_t main() 
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t = 1;
-    cin >> t;
     while (t--)
     {
         solve();

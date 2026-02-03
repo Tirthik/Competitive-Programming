@@ -149,7 +149,14 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n, x;
+    cin >> n >> x;
+    if (x == 0)
+    {
+        cout << 0 << endl;
+        return;
+    }
+    cout << n + x << endl;
 }
 int32_t main() 
 {

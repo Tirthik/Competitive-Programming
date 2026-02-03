@@ -149,7 +149,28 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<vector<int>> grid(n, vector<int>(n, 0));
+    for (int i = 0; i < n; i ++)
+    {
+        string s;
+        cin >> s;
+        for (int j = 0; j < n; j ++)
+        {
+            grid[i][j] = s[j] - '0';
+        }
+    }
+    int ans = 0;
+    for (int i = 0; i < n / 2; i ++)
+    {
+        for (int j = 0; j < (n + 1) / 2; j ++)
+        {
+            int count = grid[i][j] + grid[j][n - i - 1] + grid[n - i - 1][n - j - 1] + grid[n - j - 1][i];
+            ans += min(count, 4 - count);
+        }
+    }
+    cout << ans << endl;
 }
 int32_t main() 
 {

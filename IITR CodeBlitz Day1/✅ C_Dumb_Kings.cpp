@@ -149,14 +149,37 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i ++)
+    {
+        cin >> a[i];
+    }
+    vector<int> pref(n);
+    pref[0] = a[0];
+    for (int i = 1; i < n; i ++)
+    {
+        pref[i] = gcd(a[i], pref[i - 1]);
+    }
+    vector<int> suff(n);
+    suff[0] = a[n - 1];
+    for (int i = 1; i < n; i ++)
+    {
+        suff[i] = gcd(a[n - i - 1], suff[i - 1]);
+    }
+    int ans = 0;
+    for (int i = 0; i < n - 1; i ++)
+    {
+        if (pref[i] != suff[n - i - 2]) ans += 1;
+    }
+    cout << ans << endl;
 }
 int32_t main() 
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t = 1;
-    cin >> t;
     while (t--)
     {
         solve();

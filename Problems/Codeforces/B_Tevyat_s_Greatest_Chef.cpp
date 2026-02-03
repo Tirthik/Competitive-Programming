@@ -149,7 +149,27 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n, k;
+    cin >> n >> k;
+    vector<bool> seen(1e6 + 1, false);
+    vector<int> a(n);
+    for (int i = 0; i < n; i ++)
+    {
+        cin >> a[i];
+        seen[a[i]] = true;
+    }
+    for (int i = 0; i < 1e6 + 1; i ++)
+    {
+        if (seen[i] == false)
+        {
+            if (k == 0)
+            {
+                cout << i << endl;
+                return;
+            }
+            k -= 1;
+        }
+    }
 }
 int32_t main() 
 {

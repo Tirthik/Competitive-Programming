@@ -149,7 +149,38 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n, k;
+    cin >> n >> k;
+    // sum of elements is invariant
+    int sum = 0;
+    for (int i = 0; i < n; i ++)
+    {
+        for (int j = 0; j < n; j ++)
+        {
+            int x;
+            cin >> x;
+            sum += x;
+        }
+    }
+    if (sum == 0)
+    {
+        if (k == 0) cout << "YES" << endl;
+        else cout << "NO" << endl;
+        return;
+    }
+    if (k == 0)
+    {
+        if (sum == 0) cout << "YES" << endl;
+        else cout << "NO" << endl;
+        return;
+    }
+    if (sum % k != 0 || sum / k < 0)
+    {
+        cout << "NO" << endl;
+        return;
+    }
+    if (isPerfectSquare(sum / k) && getRoot(sum / k, 2) <= n) cout << "YES" << endl;
+    else cout << "NO" << endl;
 }
 int32_t main() 
 {

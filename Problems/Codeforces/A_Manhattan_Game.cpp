@@ -149,7 +149,9 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int xa, ya, xd, yd, k;
+    cin >> xa >> ya >> xd >> yd >> k;
+    cout << (abs(xa - xd) + abs(ya - yd) + k - 1) / k << endl;
 }
 int32_t main() 
 {

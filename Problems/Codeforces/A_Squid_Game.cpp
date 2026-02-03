@@ -149,7 +149,14 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n = 3;
+    vector<int> s(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> s[i];
+    }
+    sort(s.begin(), s.end());
+    cout << max(0LL, s[2] - s[1] - s[0] + 1) << endl;
 }
 int32_t main() 
 {

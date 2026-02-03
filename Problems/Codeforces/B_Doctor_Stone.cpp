@@ -149,7 +149,28 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    if (n % 4 == 3 || n % 4 == 0)
+    {
+        int x = 0;
+        for (int i = 2; i <= 2 * n - 1; i += 2)
+        {
+            cout << i << " ";
+            x ^= i;
+        }
+        cout << (x ^ 1) << endl;
+    }
+    else
+    {
+        int x = 0;
+        for (int i = 4; i < n + 3; i ++)
+        {
+            cout << i << " ";
+            x ^= i;
+        }
+        cout << (x ^ 1) << endl;
+    }
 }
 int32_t main() 
 {

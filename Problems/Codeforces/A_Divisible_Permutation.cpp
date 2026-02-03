@@ -42,20 +42,6 @@ int nPr(int n, int r, int M)
     if (r < 0 || r > n) return 0;
     return fact[n] * invfact[n - r] % M;
 }
-int modinv(int a, int M) 
-{
-    int b = M, u = 1, v = 0;
-    while (b) 
-    {
-        int t = a / b;
-        a -= t * b; swap(a, b);
-        u -= t * v; swap(u, v);
-    }
-    if (a != 1) return -1;
-    u %= M;
-    if (u < 0) u += M;
-    return u;
-}
 vector<bool> sieve(int n) 
 {
     vector<bool> prime(n + 1, true);
@@ -70,31 +56,21 @@ vector<bool> sieve(int n)
     }
     return prime;
 }
-int getRoot(int x, int y) //y-th root of x
+int isqrt(int n) 
 {
-    int l = 0, h = x, ans = 0;
-    while (l <= h) 
+    int lo = 0, hi = 1e9 + 5;  
+    int ans = 0;
+    while (lo <= hi) 
     {
-        int m = l + (h - l) / 2;
-        __int128 cur = 1;
-        bool ok = true;
-        for (int i = 0; i < y; i ++) 
-        {
-            cur *= m;
-            if (cur > x) 
-            {
-                ok = false;
-                break;
-            }
-        }
-        if (ok) 
-        {
-            ans = m;
-            l = m + 1;
+        int mid = (lo + hi) / 2;
+        if (mid <= n / mid) 
+        {  
+            ans = mid;
+            lo = mid + 1;
         } 
         else 
         {
-            h = m - 1;
+            hi = mid - 1;
         }
     }
     return ans;
@@ -102,7 +78,7 @@ int getRoot(int x, int y) //y-th root of x
 bool isPerfectSquare(int n) 
 {
     if (n < 0) return false;
-    int r = getRoot(n, 2);
+    int r = isqrt(n);
     return r * r == n;
 }
 vector<int> factors(int n) 
@@ -119,26 +95,6 @@ vector<int> factors(int n)
     }
     return f; 
 }
-vector<int> prefixArr(vector<int>& arr) 
-{
-    int n = arr.size();
-    vector<int> pref(n + 1, 0);
-    for (int i = 1; i <= n; i ++) 
-    {
-        pref[i] = pref[i - 1] + arr[i - 1];
-    }
-    return pref;
-}
-vector<int> suffixArr(const vector<int>& arr) 
-{
-    int n = arr.size();
-    vector<int> suff(n + 1, 0);
-    for (int i = 1; i <= n; i ++) 
-    {
-        suff[i] = suff[i - 1] + arr[n - i];
-    }
-    return suff;
-}
 int gcd(int a, int b)
 {
     return (!b ? a : gcd(b, a % b));
@@ -149,7 +105,31 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> ans(n);
+    int num = n;
+    int d = n - 1;
+    for (int i = 0; i < n; i ++)
+    {
+        if (i % 2 == 0)
+        {
+            ans[i] = num;
+            num -= d;
+        }
+        else
+        {
+            ans[i] = num;
+            num += d;
+        }
+        d -= 1;
+    }
+    reverse(ans.begin(), ans.end());
+    for (int x : ans)
+    {
+        cout << x << " ";
+    }
+    cout << endl;
 }
 int32_t main() 
 {

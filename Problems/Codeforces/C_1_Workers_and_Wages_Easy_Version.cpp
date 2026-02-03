@@ -149,7 +149,44 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
+    vector<int> b(n);
+    for (int i = 0; i < n; i ++)
+    {
+        cin >> a[i];
+    }
+    for (int i = 0; i < n; i ++)
+    {
+        cin >> b[i];
+    }
+    multiset<pair<int, int>> w;
+    for (int i = 0; i < n; i ++)
+    {
+        w.insert({a[i], b[i]});
+    }
+    int ans = 0;
+    if (n == 1)
+    {
+        while (k--)
+        {
+            ans = (ans + a[0]) % MOD2;
+            a[0] += b[0];
+        }
+        cout << ans % MOD2 << endl;
+        return;
+    }
+    while (k--)
+    {
+        auto it = w.begin();
+        int A = (*it).first;
+        int B = (*it).second;
+        ans = (ans + A) % MOD2;
+        w.erase(it);
+        w.insert({A + B, B});
+    }
+    cout << ans % MOD2 << endl;
 }
 int32_t main() 
 {

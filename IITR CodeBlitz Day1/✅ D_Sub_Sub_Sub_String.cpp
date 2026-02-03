@@ -149,7 +149,56 @@ int lcm(int a, int b)
 }
 void solve()
 {
-    
+    int n, q;
+    cin >> n >> q;
+    string s;
+    cin >> s;
+    char curr = s[0];
+    vector<int> pref01(n + 1);
+    pref01[1] = 0;
+    vector<int> pref10(n + 1);
+    pref10[1] = 0;
+    vector<int> ans;
+    ans.push_back(0);
+    for (int i = 1; i < n; i ++)
+    {
+        if (curr == '0' && s[i] == '1')
+        {
+            pref01[i + 1] = pref01[i] + 1;
+        }
+        else
+        {
+            pref01[i + 1] = pref01[i];
+        }
+        if (curr == '1' && s[i] == '0')
+        {
+            pref10[i + 1] = pref10[i] + 1;
+        }
+        else 
+        {
+            pref10[i + 1] = pref10[i];
+        }
+        curr = s[i];
+        ans.push_back(abs(pref01[i + 1] - pref10[i + 1]));
+    }
+    vector<int> freq0(n + 1);
+    for (int i = 1; i <= n; i ++)
+    {
+        freq0[i] = freq0[i - 1] + (ans[i - 1] == 0 ? 1 : 0);
+    }
+    vector<int> freq1(n + 1);
+    for (int i = 1; i <= n; i ++)
+    {
+        freq1[i] = freq1[i - 1] + (ans[i - 1] == 1 ? 1 : 0);
+    }
+    for (int i = 0; i < q; i ++)
+    {
+        int l, r;
+        cin >> l >> r;
+        int cnt0 = freq0[r] - freq0[l - 1];
+        int cnt1 = freq1[r] - freq1[l - 1];
+        cout << r - l + 1 + (cnt0 * (cnt0 - 1)) / 2 + (cnt1 * (cnt1 - 1)) / 2 << endl;
+    } 
 }
 int32_t main() 
 {
